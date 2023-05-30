@@ -1,20 +1,53 @@
 import { Avatar, Button, Container, Heading, Input, Text, VStack } from '@chakra-ui/react'
-import React from 'react'
-import {Link } from "react-router-dom";
+import React, { useState } from 'react'
+import {Link  } from "react-router-dom";
+import {auth} from "../Firebase";
+import {createUserWithEmailAndPassword} from "firebase/auth";
+
 
 const Signup = () => {
+
+  const [email,setemail] = useState("");
+  const [password,setpassword] = useState("");
+  
+
+  const signup = (e)=> {
+
+    e.preventDefault();
+    
+    createUserWithEmailAndPassword(auth,email,password)
+    .then((value) => console.log(value))
+    .catch((error) => console.log(error));
+    
+  //   
+
+  }
+  // const signup = async ()=>{
+  //   try {
+
+  //     const signupuser = await createUserWithEmailAndPassword(
+  //       auth,name,email,password
+  //     );
+
+  //     console.log(signupuser);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
+
+  // console.log(userr);
   return (
     <Container maxW={"container.xl"} minH = {"100vh"} p = {"13"}>
 
-      <form>
+      <form id = "signupform"   >
         <VStack alignItems={"stretch"} spacing = "8" w = {["full",96]} m = "auto" my = "16">
           <Heading>Video Hub</Heading>
           <Avatar alignSelf={"center"} boxSize = {"32"}/>
-          <Input type = "name" placeholder='name' required focusBorderColor= "purple.500"/>
-          <Input type = "email" placeholder='Email' required focusBorderColor= "purple.500"/>
-          <Input type = "password" placeholder='Password' required focusBorderColor= "purple.500"/>
+          <Input type = "name" placeholder='name'  focusBorderColor= "purple.500" /*onChange={(e) => setname(e.target.value)}*//>
+          <Input type = "email" placeholder='Email' required focusBorderColor= "purple.500" onChange={(e) => setemail(e.target.value)}/>
+          <Input type = "password" placeholder='Password' required focusBorderColor= "purple.500" onChange={(e)=> setpassword(e.target.value)}/>
 
-          <Button colorScheme={"purple"} type = "submit">Sign Up</Button>
+          <Button colorScheme={"purple"} type = "submit" onClick={signup} >Sign Up</Button>
 
           <Text textAlign={"right"}>
               Already Signed Up? {" "}
