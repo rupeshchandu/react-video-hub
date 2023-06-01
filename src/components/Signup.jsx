@@ -16,8 +16,8 @@ const Signup = () => {
     e.preventDefault();
     
     createUserWithEmailAndPassword(auth,email,password)
-    .then((value) => console.log(value))
-    .catch((error) => console.log(error));
+    .then((value) => console.log(value),alert("Thankyou for creating an account"))
+    .catch((error) => alert(error.message));
     
   //   
 
